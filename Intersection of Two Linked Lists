@@ -1,0 +1,131 @@
+/**
+
+https://leetcode.com/explore/learn/card/linked-list/214/two-pointer-technique/1215/
+
+Given the heads of two singly linked-lists headA and headB, return the node at which the two lists intersect. If the two linked lists have no intersection at all, return null.
+
+For example, the following two linked lists begin to intersect at node c1:
+
+
+The test cases are generated such that there are no cycles anywhere in the entire linked structure.
+
+Note that the linked lists must retain their original structure after the function returns.
+
+Custom Judge:
+
+The inputs to the judge are given as follows (your program is not given these inputs):
+
+intersectVal - The value of the node where the intersection occurs. This is 0 if there is no intersected node.
+listA - The first linked list.
+listB - The second linked list.
+skipA - The number of nodes to skip ahead in listA (starting from the head) to get to the intersected node.
+skipB - The number of nodes to skip ahead in listB (starting from the head) to get to the intersected node.
+The judge will then create the linked structure based on these inputs and pass the two heads, headA and headB to your program. If you correctly return the intersected node, then your solution will be accepted.
+
+**/
+
+
+
+
+
+
+
+
+
+/** Visualization:: 
+
+      a
+A:          a1 → a2
+                   ↘
+                     c1 → c2 → c3 → null
+                   ↗            
+B:     b1 → b2 → b3
+       b
+                 a
+A:          a1 → a2
+                   ↘
+                     c1 → c2 → c3 → null
+                   ↗            
+B:     b1 → b2 → b3
+            b
+A:          a1 → a2
+                   ↘ a
+                     c1 → c2 → c3 → null
+                   ↗            
+B:     b1 → b2 → b3
+                 b
+A:          a1 → a2
+                   ↘      a
+                     c1 → c2 → c3 → null
+                   ↗ b           
+B:     b1 → b2 → b3
+A:          a1 → a2
+                   ↘           a
+                     c1 → c2 → c3 → null
+                   ↗      b           
+B:     b1 → b2 → b3
+A:          a1 → a2
+                   ↘                a = null, then a = b1
+                     c1 → c2 → c3 → null
+                   ↗           b           
+B:     b1 → b2 → b3
+A:          a1 → a2
+                   ↘ 
+                     c1 → c2 → c3 → null
+                   ↗                b = null, then b = a1 
+B:     b1 → b2 → b3
+       a
+            b         
+A:          a1 → a2
+                   ↘ 
+                     c1 → c2 → c3 → null
+                   ↗
+B:     b1 → b2 → b3
+            a
+                 b         
+A:          a1 → a2
+                   ↘ 
+                     c1 → c2 → c3 → null
+                   ↗ 
+B:     b1 → b2 → b3
+                 a
+A:          a1 → a2
+                   ↘ b
+                     c1 → c2 → c3 → null
+                   ↗ a
+B:     b1 → b2 → b3
+Since a == b is true, end loop while(a != b), return the intersection node a = c1.
+
+
+**/
+
+
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) {
+ *         val = x;
+ *         next = null;
+ *     }
+ * }
+ */
+public class Solution {
+public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+    //boundary check
+    if(headA == null || headB == null) return null;
+    
+    ListNode a = headA;
+    ListNode b = headB;
+    
+    //if a & b have different len, then we will stop the loop after second iteration
+    while( a != b){
+    	//for the end of first iteration, we just reset the pointer to the head of another linkedlist
+        a = a == null? headB : a.next;
+        b = b == null? headA : b.next;    
+    }
+    
+    return a;
+}
+}
