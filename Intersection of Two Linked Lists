@@ -96,7 +96,7 @@ A:          a1 → a2
 B:     b1 → b2 → b3
 Since a == b is true, end loop while(a != b), return the intersection node a = c1.
 
-
+https://leetcode.com/explore/learn/card/linked-list/214/two-pointer-technique/1215/discuss/49785/Java-solution-without-knowing-the-difference-in-len!
 **/
 
 
