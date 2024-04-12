@@ -1,0 +1,67 @@
+/**
+Given the head of a singly linked list, return true if it is a palindrome or false otherwise.
+
+ https://leetcode.com/explore/learn/card/linked-list/219/classic-problems/1209/
+
+Example 1:
+
+
+Input: head = [1,2,2,1]
+Output: true
+
+**/
+
+
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+  
+public boolean isPalindrome(ListNode head) {
+    ListNode slow=head;
+    ListNode fast=head.next;  //To find mid point take fast as head.next
+    int count=0;
+    
+    if (head == null || head.next == null) return true;
+    
+    while(fast!=null && fast.next!=null) {
+        slow =slow.next;
+        fast = fast.next.next;
+        count++;
+    }
+
+    //Reverse the second half
+    ListNode prev=null;
+    ListNode ptr= slow;
+    
+    while(ptr!=null) {
+        ListNode temp=ptr.next;
+        ptr.next=prev;
+        prev=ptr;
+        ptr=temp;
+    }
+    
+    ListNode start=head;
+    ListNode end=prev;
+    
+    for(int i=0; i<=count;i++){
+        if(start.val!=end.val){
+            return false;
+        }
+           start=start.next;
+            end=end.next;
+    }
+    
+    return true;
+           
+   }
+}
+
+
