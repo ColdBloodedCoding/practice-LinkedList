@@ -1,0 +1,53 @@
+/**
+
+https://leetcode.com/explore/learn/card/linked-list/213/conclusion/1295/
+
+Given the head of a linked list, rotate the list to the right by k places.
+
+ 
+
+Example 1:
+
+
+Input: head = [1,2,3,4,5], k = 2
+Output: [4,5,1,2,3]
+
+**/
+
+
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    public ListNode rotateRight(ListNode head, int k) {
+      if(head==null || k==0) return head;
+    
+    ListNode curr=head;
+    int len =1;
+    while(curr.next!=null) {
+        curr=curr.next;
+        len++;
+    }
+    
+    //Connect your last node to head and make it a cycle
+    curr.next=head;
+    
+//to avoid repitition of loop we use % operator, eg: result for 2 times will equal say result of 7 times, so no need to calculate and run loop 7 times.
+    
+    k=k%len;     //we are using % for scenarios where k>len
+for(int i=0;i<len-k;i++) {  // index-k loop will take you to a node before where you need to cut 
+        curr=curr.next;            //curr is node before where you need to cut
+    } 
+    head=curr.next;
+    curr.next=null;
+    
+    return head;
+    }
+}
